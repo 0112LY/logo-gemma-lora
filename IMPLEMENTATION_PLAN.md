@@ -139,12 +139,12 @@ Select the most stable checkpoint rather than assuming the last checkpoint is
 best. Add another run only when one of these results shows a specific problem,
 such as immediate overfitting or generation collapse.
 
-The preferred ms-swift backend was tested first. ms-swift 4.4.0 successfully
-loaded the model, tokenized assistant-only labels, and injected LoRA, but its
-Trainer imports `torch.distributed.fsdp.FSDPModule`, which is unavailable in the
-local PyTorch 2.5.1 build. The project therefore uses
-`student_kit/train_peft.py`, the planned Transformers+PEFT fallback, without
-changing the experiment hyperparameters.
+The preferred backend is ms-swift 4.4.0. It successfully loads the model,
+tokenizes assistant-only labels, and injects LoRA. The local PyTorch 2.5.1
+build cannot create its Trainer because that version lacks
+`torch.distributed.fsdp.FSDPModule`, so `student_kit/train_peft.py` remains a
+tested fallback for the local machine. The AI Studio PyTorch 2.10 environment
+provides this API and should run the YAML files directly with `swift sft`.
 
 All three configurations completed a one-step local smoke test at 320 tokens.
 This smoke-only truncation is not an experiment result. At 512 and 1024 tokens,
@@ -154,9 +154,9 @@ executed on an AI Studio GPU with:
 
 ```bash
 python scripts/prepare_data.py
-python student_kit/train_peft.py configs/exp1_rank8_lr1e-4.yaml
-python student_kit/train_peft.py configs/exp2_rank16_lr1e-4.yaml
-python student_kit/train_peft.py configs/exp3_rank8_lr2e-4.yaml
+swift sft configs/exp1_rank8_lr1e-4.yaml
+swift sft configs/exp2_rank16_lr1e-4.yaml
+swift sft configs/exp3_rank8_lr2e-4.yaml
 ```
 
 ## Stage 5: final evaluation and submission

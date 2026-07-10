@@ -1,5 +1,4 @@
 # Rank comparison against Exp1.
-backend: transformers_peft
 ENV:
   MODELSCOPE_CACHE: outputs/cache/modelscope
   HF_HOME: outputs/cache/huggingface

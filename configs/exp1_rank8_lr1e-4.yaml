@@ -1,5 +1,4 @@
 # Required minimal LoRA baseline. Keep synchronized with train_config.yaml.
-backend: transformers_peft
 ENV:
   MODELSCOPE_CACHE: outputs/cache/modelscope
   HF_HOME: outputs/cache/huggingface

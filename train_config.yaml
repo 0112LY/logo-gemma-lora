@@ -1,6 +1,5 @@
 # Final submission config is updated to the selected experiment after comparison.
 # This initial file defines Exp1, the required rank-8 LoRA baseline.
-backend: transformers_peft
 ENV:
   MODELSCOPE_CACHE: outputs/cache/modelscope
   HF_HOME: outputs/cache/huggingface
