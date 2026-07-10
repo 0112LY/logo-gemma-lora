@@ -27,6 +27,13 @@ class RewardTests(unittest.TestCase):
         self.assertEqual(result["total"], 0.0)
         self.assertIn("no complete SVG found", result["reasons"])
 
+    def test_self_closing_svg_is_valid_but_has_no_drawing(self):
+        result = score_svg("a logo", '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10"/>')
+        self.assertTrue(result["valid_xml"])
+        self.assertEqual(result["visible_elements"], 0)
+        self.assertGreater(result["total"], 0.0)
+        self.assertLessEqual(result["total"], 0.2)
+
     def test_malformed_xml_is_capped(self):
         result = score_svg("a logo", "<svg><rect></svg>")
         self.assertLessEqual(result["total"], 0.1)

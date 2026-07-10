@@ -104,6 +104,8 @@ failure justifies the extra implementation.
 
 ## Stage 3: baseline evaluation
 
+Status: complete.
+
 - Evaluate the unmodified base model on the 17 validation prompts.
 - Fix the chat template, seed, generation length, temperature, and sampling
   settings for every comparison.
@@ -111,7 +113,16 @@ failure justifies the extra implementation.
 - Put only metadata, summary metrics, per-sample component scores, failure
   reasons, validity, and lengths in the submitted `results.json`.
 
+Recorded Base result with seed 42, greedy decoding, and a 2048-token output
+limit: proxy reward 0.065882, XML validity 11.76%, and visible drawing rate 0%.
+The full run took 695.06 generation seconds locally. Fourteen outputs used a
+self-closing SVG form, but most contained malformed attributes; two were valid
+empty SVG elements and none contained a visible drawing. This weak baseline is
+expected and provides the required comparison point for LoRA.
+
 ## Stage 4: compact LoRA experiment set
+
+Status: configured and smoke-tested; full-length runs require AI Studio.
 
 Run only these planned comparisons initially:
 
@@ -127,6 +138,26 @@ validation loss, total proxy reward, validity, and prompt-fidelity component.
 Select the most stable checkpoint rather than assuming the last checkpoint is
 best. Add another run only when one of these results shows a specific problem,
 such as immediate overfitting or generation collapse.
+
+The preferred ms-swift backend was tested first. ms-swift 4.4.0 successfully
+loaded the model, tokenized assistant-only labels, and injected LoRA, but its
+Trainer imports `torch.distributed.fsdp.FSDPModule`, which is unavailable in the
+local PyTorch 2.5.1 build. The project therefore uses
+`student_kit/train_peft.py`, the planned Transformers+PEFT fallback, without
+changing the experiment hyperparameters.
+
+All three configurations completed a one-step local smoke test at 320 tokens.
+This smoke-only truncation is not an experiment result. At 512 and 1024 tokens,
+the MX450 ran out of memory because the 262k-token vocabulary makes the
+training loss materialize large FP32 logits. The formal 3584-token runs must be
+executed on an AI Studio GPU with:
+
+```bash
+python scripts/prepare_data.py
+python student_kit/train_peft.py configs/exp1_rank8_lr1e-4.yaml
+python student_kit/train_peft.py configs/exp2_rank16_lr1e-4.yaml
+python student_kit/train_peft.py configs/exp3_rank8_lr2e-4.yaml
+```
 
 ## Stage 5: final evaluation and submission
 

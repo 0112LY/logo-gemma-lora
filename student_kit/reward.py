@@ -47,6 +47,7 @@ PATH_TOKEN_RE = re.compile(
 )
 NUMBER_RE = re.compile(r"[-+]?(?:\d+(?:\.\d*)?|\.\d+)(?:[eE][-+]?\d+)?")
 SVG_RE = re.compile(r"<svg\b[^>]*>.*?</svg\s*>", re.IGNORECASE | re.DOTALL)
+SELF_CLOSING_SVG_RE = re.compile(r"<svg\b[^>]*?/\s*>", re.IGNORECASE | re.DOTALL)
 CODE_FENCE_RE = re.compile(r"```(?:svg|xml)?\s*(.*?)```", re.IGNORECASE | re.DOTALL)
 URL_RE = re.compile(r"url\(\s*(['\"]?)(.*?)\1\s*\)", re.IGNORECASE)
 
@@ -135,9 +136,9 @@ def extract_svg(output: str) -> str | None:
         return None
     candidates = [match.group(1) for match in CODE_FENCE_RE.finditer(output)] + [output]
     for candidate in candidates:
-        match = SVG_RE.search(candidate)
-        if match:
-            return match.group(0).strip()
+        matches = [match for pattern in (SVG_RE, SELF_CLOSING_SVG_RE) if (match := pattern.search(candidate))]
+        if matches:
+            return min(matches, key=lambda match: match.start()).group(0).strip()
     return None
 
 
