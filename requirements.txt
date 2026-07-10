@@ -1,0 +1,20 @@
+# Core training stack captured from the verified local environment.
+# Install a CUDA-compatible PyTorch build for the target machine before
+# installing the remaining packages when the default wheel is CPU-only.
+torch==2.5.1
+ms-swift==4.4.0
+modelscope==1.38.1
+transformers==5.12.1
+peft==0.19.1
+trl==0.29.1
+accelerate==1.14.0
+datasets==4.8.4
+safetensors==0.8.0
+tokenizers==0.22.2
+sentencepiece==0.2.1
+
+# Data processing and configuration dependencies used by the training stack.
+numpy==1.26.4
+scipy==1.15.3
+pandas==2.3.3
+PyYAML==6.0.3

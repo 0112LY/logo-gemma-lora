@@ -1,0 +1,22 @@
+# Local Python environment
+.venv/
+__pycache__/
+*.py[cod]
+
+# Downloaded data, base models, and upstream source checkout
+data/
+models/
+resources/
+
+# Training artifacts (final deliverables are explicitly unignored)
+outputs/
+checkpoints/
+runs/
+wandb/
+results_detailed.json
+
+# Editors and operating-system files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
