@@ -1,10 +1,38 @@
 # Reproducible environment
 
-This file records the environment used to validate the dataset and load the
-base model before fine-tuning. The final training report should note any
-hardware or package changes made on AI Studio.
+This file records both the local validation environment and the final remote
+training environment. The adapter and reported validation results were produced
+in the ModelScope environment described below.
 
-## Software
+## Final ModelScope training environment
+
+| Component | Version / value |
+| --- | --- |
+| Platform | ModelScope DSW, Linux |
+| Python | 3.12.13 |
+| PyTorch | 2.10.0+cu128 |
+| CUDA runtime reported by PyTorch | 12.8 |
+| GPU | NVIDIA A10 |
+| Available VRAM | approximately 22.18 GiB |
+| BF16 support | Yes |
+| ms-swift | 4.4.0 |
+| Transformers | 5.8.1 |
+| PEFT | 0.19.1 |
+| bitsandbytes | 0.49.2 |
+| Final precision | BF16 |
+| Random seed / data seed | 42 / 42 |
+| ModelScope repository | `google/gemma-3-270m-it` |
+| Remote model path | `/mnt/workspace/logo-gemma-lora/models/gemma-3-270m-it` |
+
+NF4 4-bit loading was tested but rejected for the final run because the
+unmodified Q4 base model itself entered repetitive generation and failed to
+close SVG output. The final selected experiment therefore uses the original
+BF16 base weights. Runtime adapter loading also behaved inconsistently in this
+package combination, so diagnostic evaluation was performed after merging the
+adapter into a temporary copy of the BF16 base model. The merged model is not
+part of the submission.
+
+## Local validation software
 
 | Component | Version |
 | --- | --- |
@@ -24,7 +52,7 @@ hardware or package changes made on AI Studio.
 
 The exact core Python dependencies are pinned in `requirements.txt`.
 
-## Hardware
+## Local validation hardware
 
 | Item | Value |
 | --- | --- |

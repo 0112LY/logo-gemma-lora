@@ -1,5 +1,6 @@
-# Final submission config is updated to the selected experiment after comparison.
-# This initial file defines Exp1, the required rank-8 LoRA baseline.
+# Final selected configuration after the BF16, Q4, and stability experiments.
+# Only the first optimizer-step checkpoint was selected because every observed
+# non-zero LoRA update caused degenerate free generation in this environment.
 ENV:
   MODELSCOPE_CACHE: outputs/cache/modelscope
   HF_HOME: outputs/cache/huggingface
@@ -13,9 +14,10 @@ split_dataset_ratio: 0.0
 
 tuner_type: lora
 target_modules:
-  - all-linear
-lora_rank: 8
-lora_alpha: 16
+  - q_proj
+  - v_proj
+lora_rank: 4
+lora_alpha: 4
 lora_dropout: 0.05
 
 torch_dtype: bfloat16
@@ -28,7 +30,7 @@ per_device_train_batch_size: 1
 per_device_eval_batch_size: 1
 gradient_accumulation_steps: 8
 gradient_checkpointing: true
-learning_rate: 1.0e-4
+learning_rate: 5.0e-6
 num_train_epochs: 1
 lr_scheduler_type: cosine
 warmup_ratio: 0.05
@@ -36,9 +38,9 @@ warmup_ratio: 0.05
 eval_strategy: steps
 eval_steps: 5
 save_strategy: steps
-save_steps: 5
-save_total_limit: 2
-load_best_model_at_end: true
+save_steps: 1
+save_total_limit: 10
+load_best_model_at_end: false
 metric_for_best_model: eval_loss
 greater_is_better: false
 logging_steps: 1
@@ -48,5 +50,5 @@ data_seed: 42
 dataset_num_proc: 1
 dataloader_num_workers: 0
 report_to: "none"
-output_dir: outputs/exp1_rank8_lr1e-4
+output_dir: outputs/exp7_bf16_conservative
 add_version: false
