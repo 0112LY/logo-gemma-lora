@@ -1,0 +1,373 @@
+{
+  "schema_version": 1,
+  "selected_checkpoint": "outputs/exp7_bf16_conservative/checkpoint-1",
+  "evaluation_model": "outputs/exp7_ckpt1_merged",
+  "precision": "bfloat16",
+  "decoding": {
+    "temperature": 0,
+    "repetition_penalty": 1.0,
+    "max_new_tokens": 1024
+  },
+  "summary": {
+    "num_samples": 17,
+    "proxy_reward_mean": 0.290784,
+    "proxy_reward_median": 0.2,
+    "valid_xml_rate": 0.529412,
+    "visible_drawing_rate": 0.235294,
+    "closing_svg_rate": 0.470588
+  },
+  "samples": [
+    {
+      "index": 0,
+      "reward": 0.94,
+      "valid_xml": true,
+      "drawing_elements": 7,
+      "visible_elements": 7,
+      "components": {
+        "validity": 1.0,
+        "structure": 1.0,
+        "canvas": 1.0,
+        "visibility": 1.0,
+        "simplicity": 1.0,
+        "fidelity": 0.4,
+        "safety": 1.0
+      },
+      "reasons": [],
+      "has_closing_svg": true,
+      "output_characters": 515
+    },
+    {
+      "index": 1,
+      "reward": 0.06,
+      "valid_xml": false,
+      "drawing_elements": 0,
+      "visible_elements": 0,
+      "components": {
+        "validity": 0.2,
+        "structure": 0.0,
+        "canvas": 0.0,
+        "visibility": 0.0,
+        "simplicity": 0.0,
+        "fidelity": 0.0,
+        "safety": 0.0
+      },
+      "reasons": [
+        "XML parse error: not well-formed (invalid token): line 7, column 0"
+      ],
+      "has_closing_svg": true,
+      "output_characters": 412
+    },
+    {
+      "index": 2,
+      "reward": 0.0,
+      "valid_xml": false,
+      "drawing_elements": 0,
+      "visible_elements": 0,
+      "components": {
+        "validity": 0.0,
+        "structure": 0.0,
+        "canvas": 0.0,
+        "visibility": 0.0,
+        "simplicity": 0.0,
+        "fidelity": 0.0,
+        "safety": 0.0
+      },
+      "reasons": [
+        "no complete SVG found"
+      ],
+      "has_closing_svg": false,
+      "output_characters": 1063
+    },
+    {
+      "index": 3,
+      "reward": 0.06,
+      "valid_xml": false,
+      "drawing_elements": 0,
+      "visible_elements": 0,
+      "components": {
+        "validity": 0.2,
+        "structure": 0.0,
+        "canvas": 0.0,
+        "visibility": 0.0,
+        "simplicity": 0.0,
+        "fidelity": 0.0,
+        "safety": 0.0
+      },
+      "reasons": [
+        "XML parse error: not well-formed (invalid token): line 1, column 116"
+      ],
+      "has_closing_svg": false,
+      "output_characters": 213
+    },
+    {
+      "index": 4,
+      "reward": 0.0,
+      "valid_xml": false,
+      "drawing_elements": 0,
+      "visible_elements": 0,
+      "components": {
+        "validity": 0.0,
+        "structure": 0.0,
+        "canvas": 0.0,
+        "visibility": 0.0,
+        "simplicity": 0.0,
+        "fidelity": 0.0,
+        "safety": 0.0
+      },
+      "reasons": [
+        "no complete SVG found"
+      ],
+      "has_closing_svg": false,
+      "output_characters": 1063
+    },
+    {
+      "index": 5,
+      "reward": 0.966667,
+      "valid_xml": true,
+      "drawing_elements": 5,
+      "visible_elements": 5,
+      "components": {
+        "validity": 1.0,
+        "structure": 1.0,
+        "canvas": 1.0,
+        "visibility": 1.0,
+        "simplicity": 1.0,
+        "fidelity": 0.666667,
+        "safety": 1.0
+      },
+      "reasons": [],
+      "has_closing_svg": true,
+      "output_characters": 391
+    },
+    {
+      "index": 6,
+      "reward": 0.0,
+      "valid_xml": false,
+      "drawing_elements": 0,
+      "visible_elements": 0,
+      "components": {
+        "validity": 0.0,
+        "structure": 0.0,
+        "canvas": 0.0,
+        "visibility": 0.0,
+        "simplicity": 0.0,
+        "fidelity": 0.0,
+        "safety": 0.0
+      },
+      "reasons": [
+        "no complete SVG found"
+      ],
+      "has_closing_svg": false,
+      "output_characters": 1314
+    },
+    {
+      "index": 7,
+      "reward": 0.0,
+      "valid_xml": false,
+      "drawing_elements": 0,
+      "visible_elements": 0,
+      "components": {
+        "validity": 0.0,
+        "structure": 0.0,
+        "canvas": 0.0,
+        "visibility": 0.0,
+        "simplicity": 0.0,
+        "fidelity": 0.0,
+        "safety": 0.0
+      },
+      "reasons": [
+        "no complete SVG found"
+      ],
+      "has_closing_svg": false,
+      "output_characters": 1361
+    },
+    {
+      "index": 8,
+      "reward": 0.2,
+      "valid_xml": true,
+      "drawing_elements": 0,
+      "visible_elements": 0,
+      "components": {
+        "validity": 1.0,
+        "structure": 1.0,
+        "canvas": 1.0,
+        "visibility": 0.0,
+        "simplicity": 1.4,
+        "fidelity": 0.0,
+        "safety": 1.0
+      },
+      "reasons": [
+        "no drawing elements",
+        "no explicit visible fill/stroke color"
+      ],
+      "has_closing_svg": true,
+      "output_characters": 123
+    },
+    {
+      "index": 9,
+      "reward": 0.2,
+      "valid_xml": true,
+      "drawing_elements": 0,
+      "visible_elements": 0,
+      "components": {
+        "validity": 1.0,
+        "structure": 1.0,
+        "canvas": 1.0,
+        "visibility": 0.3,
+        "simplicity": 1.4,
+        "fidelity": 0.0,
+        "safety": 1.0
+      },
+      "reasons": [
+        "no drawing elements"
+      ],
+      "has_closing_svg": false,
+      "output_characters": 240
+    },
+    {
+      "index": 10,
+      "reward": 0.0,
+      "valid_xml": false,
+      "drawing_elements": 0,
+      "visible_elements": 0,
+      "components": {
+        "validity": 0.0,
+        "structure": 0.0,
+        "canvas": 0.0,
+        "visibility": 0.0,
+        "simplicity": 0.0,
+        "fidelity": 0.0,
+        "safety": 0.0
+      },
+      "reasons": [
+        "no complete SVG found"
+      ],
+      "has_closing_svg": false,
+      "output_characters": 1063
+    },
+    {
+      "index": 11,
+      "reward": 0.966667,
+      "valid_xml": true,
+      "drawing_elements": 6,
+      "visible_elements": 6,
+      "components": {
+        "validity": 1.0,
+        "structure": 1.0,
+        "canvas": 1.0,
+        "visibility": 1.0,
+        "simplicity": 1.0,
+        "fidelity": 0.666667,
+        "safety": 1.0
+      },
+      "reasons": [],
+      "has_closing_svg": true,
+      "output_characters": 447
+    },
+    {
+      "index": 12,
+      "reward": 0.2,
+      "valid_xml": true,
+      "drawing_elements": 0,
+      "visible_elements": 0,
+      "components": {
+        "validity": 1.0,
+        "structure": 1.0,
+        "canvas": 1.0,
+        "visibility": 0.3,
+        "simplicity": 1.4,
+        "fidelity": 0.0,
+        "safety": 1.0
+      },
+      "reasons": [
+        "no drawing elements"
+      ],
+      "has_closing_svg": false,
+      "output_characters": 136
+    },
+    {
+      "index": 13,
+      "reward": 0.2,
+      "valid_xml": true,
+      "drawing_elements": 0,
+      "visible_elements": 0,
+      "components": {
+        "validity": 1.0,
+        "structure": 1.0,
+        "canvas": 1.0,
+        "visibility": 0.0,
+        "simplicity": 1.4,
+        "fidelity": 0.0,
+        "safety": 1.0
+      },
+      "reasons": [
+        "no drawing elements",
+        "no explicit visible fill/stroke color"
+      ],
+      "has_closing_svg": true,
+      "output_characters": 123
+    },
+    {
+      "index": 14,
+      "reward": 0.2,
+      "valid_xml": true,
+      "drawing_elements": 0,
+      "visible_elements": 0,
+      "components": {
+        "validity": 1.0,
+        "structure": 1.0,
+        "canvas": 1.0,
+        "visibility": 0.0,
+        "simplicity": 1.4,
+        "fidelity": 0.0,
+        "safety": 1.0
+      },
+      "reasons": [
+        "no drawing elements",
+        "no explicit visible fill/stroke color"
+      ],
+      "has_closing_svg": true,
+      "output_characters": 123
+    },
+    {
+      "index": 15,
+      "reward": 0.95,
+      "valid_xml": true,
+      "drawing_elements": 7,
+      "visible_elements": 7,
+      "components": {
+        "validity": 1.0,
+        "structure": 1.0,
+        "canvas": 1.0,
+        "visibility": 1.0,
+        "simplicity": 1.0,
+        "fidelity": 0.5,
+        "safety": 1.0
+      },
+      "reasons": [],
+      "has_closing_svg": true,
+      "output_characters": 520
+    },
+    {
+      "index": 16,
+      "reward": 0.0,
+      "valid_xml": false,
+      "drawing_elements": 0,
+      "visible_elements": 0,
+      "components": {
+        "validity": 0.0,
+        "structure": 0.0,
+        "canvas": 0.0,
+        "visibility": 0.0,
+        "simplicity": 0.0,
+        "fidelity": 0.0,
+        "safety": 0.0
+      },
+      "reasons": [
+        "no complete SVG found"
+      ],
+      "has_closing_svg": false,
+      "output_characters": 1063
+    }
+  ]
+}
