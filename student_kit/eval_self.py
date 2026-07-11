@@ -100,12 +100,12 @@ def load_model(
     return model, tokenizer
 
 
-def generation_config(max_new_tokens: int) -> dict[str, Any]:
+def generation_config(max_new_tokens: int, repetition_penalty: float) -> dict[str, Any]:
     return {
         "do_sample": False,
         "max_new_tokens": max_new_tokens,
         "num_beams": 1,
-        "repetition_penalty": 1.0,
+        "repetition_penalty": repetition_penalty,
         "use_cache": True,
     }
 
@@ -115,6 +115,7 @@ def generate_one(
     tokenizer: Any,
     messages: list[dict[str, str]],
     max_new_tokens: int,
+    repetition_penalty: float,
     device: str,
 ) -> tuple[str, int, int, float]:
     rendered = tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
@@ -129,7 +130,7 @@ def generate_one(
             attention_mask=attention_mask,
             stopping_criteria=StoppingCriteriaList([stop]),
             pad_token_id=tokenizer.eos_token_id,
-            **generation_config(max_new_tokens),
+            **generation_config(max_new_tokens, repetition_penalty),
         )
     elapsed = time.perf_counter() - started
     output_ids = generated[0, input_ids.shape[1] :]
@@ -221,6 +222,7 @@ def main() -> None:
     parser.add_argument("--results", type=Path, default=Path("results.json"))
     parser.add_argument("--detailed-results", type=Path, default=Path("results_detailed.json"))
     parser.add_argument("--max-new-tokens", type=int, default=2048)
+    parser.add_argument("--repetition-penalty", type=float, default=1.0)
     parser.add_argument("--device", choices=("auto", "cuda", "cpu"), default="auto")
     parser.add_argument("--dtype", choices=("auto", "float32", "float16", "bfloat16"), default="auto")
     parser.add_argument("--limit", type=int)
@@ -232,7 +234,9 @@ def main() -> None:
     dtype = choose_dtype(args.dtype, device)
     rows = load_jsonl(args.data, args.limit)
     model, tokenizer = load_model(args.model, args.adapter, device, dtype)
-    generation = generation_config(args.max_new_tokens)
+    if args.repetition_penalty < 1.0:
+        parser.error("--repetition-penalty must be at least 1.0")
+    generation = generation_config(args.max_new_tokens, args.repetition_penalty)
     metadata = {
         "run_name": args.run_name,
         "created_at": datetime.now(timezone.utc).isoformat(),
@@ -262,7 +266,7 @@ def main() -> None:
         messages = row["messages"]
         prompt = messages[1]["content"]
         output, input_tokens, output_tokens, elapsed = generate_one(
-            model, tokenizer, messages[:2], args.max_new_tokens, device
+            model, tokenizer, messages[:2], args.max_new_tokens, args.repetition_penalty, device
         )
         reward_result = score_svg(prompt, output)
         completed[index] = {
