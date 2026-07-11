@@ -105,7 +105,7 @@ def generation_config(max_new_tokens: int) -> dict[str, Any]:
         "do_sample": False,
         "max_new_tokens": max_new_tokens,
         "num_beams": 1,
-        "repetition_penalty": 1.0,
+        "repetition_penalty": 1.1,
         "use_cache": True,
     }
 
