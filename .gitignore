@@ -14,6 +14,7 @@ checkpoints/
 runs/
 wandb/
 results_detailed.json
+results.local-backup.json
 
 # Editors and operating-system files
 .vscode/
