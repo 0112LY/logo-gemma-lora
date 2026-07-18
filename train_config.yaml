@@ -1,6 +1,3 @@
-# Final selected configuration after the BF16, Q4, and stability experiments.
-# Only the first optimizer-step checkpoint was selected because every observed
-# non-zero LoRA update caused degenerate free generation in this environment.
 ENV:
   MODELSCOPE_CACHE: outputs/cache/modelscope
   HF_HOME: outputs/cache/huggingface
