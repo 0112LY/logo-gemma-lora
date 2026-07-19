@@ -37,6 +37,13 @@ def extract_svg(raw: str) -> str:
     return match.group(0) if match else raw.strip()
 
 
+def normalize_svg_namespace(element: ET.Element) -> None:
+    """只修正渲染副本的标签命名空间，不改动保存的原始推理文本。"""
+    for node in element.iter():
+        local_name = node.tag.rsplit("}", 1)[-1]
+        node.tag = q(local_name)
+
+
 def nested_svg(raw: str, x: int) -> ET.Element:
     group = ET.Element(q("g"))
     ET.SubElement(
@@ -56,6 +63,7 @@ def nested_svg(raw: str, x: int) -> ET.Element:
         return group
 
     parsed = copy.deepcopy(parsed)
+    normalize_svg_namespace(parsed)
     parsed.set("x", str(x + 12))
     parsed.set("y", "74")
     parsed.set("width", "276")
