@@ -18,6 +18,7 @@
 | `configs/exp1_rank8_lr1e-4.yaml` | rank 8、学习率 1e-4 的 baseline 配置 |
 | `configs/exp2_rank16_lr1e-4.yaml` | rank 16 对比配置 |
 | `configs/exp3_rank8_lr2e-4.yaml` | 学习率 2e-4 对比配置 |
+| `configs/exp4_final_lr5e-6.yaml` | 生成退化后追加的保守最终配置 |
 | `results.json` | 最终验证集汇总和逐样本评分 |
 | `report.md` | 实验过程、微调前后对比、失败分析与结论 |
 | `requirements.txt` | Python 依赖版本 |

@@ -443,6 +443,7 @@
     },
     "finetuned": {
       "metadata": {
+        "experiment": "Exp4",
         "created_at": "2026-07-19T10:25:44.676853+00:00",
         "base_model": "models/gemma-3-270m-it",
         "adapter": "adapter",
@@ -885,6 +886,7 @@
   "comparison": {
     "base_run": "base",
     "finetuned_run": "finetuned",
+    "finetuned_experiment": "Exp4",
     "same_dataset": true,
     "same_decoding": true,
     "proxy_reward_delta": 0.0,

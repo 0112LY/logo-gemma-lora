@@ -42,12 +42,13 @@ reward 权重为：有效性 30%、结构 15%、画布 15%、可见性 15%、简
 | Exp1 | 8 | 1e-4 | 1 | LoRA baseline |
 | Exp2 | 16 | 1e-4 | 1 | 比较 rank 影响 |
 | Exp3 | 8 | 2e-4 | 1 | 比较学习率影响 |
+| Exp4 | 4 | 5e-6 | 5 steps | 前三组生成退化后追加的保守最终配置 |
 
 Exp1 完成 28 个优化步骤，最终汇总 train loss 为 1.177，最终 eval loss 为 1.055。虽然 token loss 下降，但验证集自由生成出现属性重复并达到长度上限，说明 teacher-forcing loss 不能直接代表 SVG 可用性。
 
-### 4.3 最终配置与 checkpoint 选择
+### 4.3 Exp4 最终配置与 checkpoint 选择
 
-由于较大的更新会导致自由生成退化，最终采用 BF16、rank 4、alpha 4、`q_proj/v_proj`、学习率 5e-6 的保守配置，并逐步保存 checkpoint。最终提交 checkpoint-1：检查发现其 36 个 `lora_B` 张量均为零，因此 LoRA 增量 `B×A` 为零，在参数层面等价于 BF16 基座。继续训练后的非零 LoRA checkpoint 出现数字重复，未作为最终结果。
+由于前三组较大的更新会导致自由生成退化，追加 Exp4：采用 BF16、rank 4、alpha 4、`q_proj/v_proj`、学习率 5e-6 的保守配置，并逐步保存 checkpoint。最终提交 Exp4 checkpoint-1：检查发现其 36 个 `lora_B` 张量均为零，因此 LoRA 增量 `B×A` 为零，在参数层面等价于 BF16 基座。继续训练后的非零 LoRA checkpoint 出现数字重复，未作为最终结果。
 
 ## 5. 结果
 
@@ -66,13 +67,13 @@ Exp1 的关键训练记录如下。`loss` 是对应日志步的训练 batch loss
 
 训练后半段的 batch loss 整体从约 1.11 降至约 0.98，期间存在正常波动；eval_loss 从 1.105 降至 1.055，并在最后两个评估节点基本持平。最低 eval_loss 没有转化为可用 SVG 输出。
 
-最终保守训练只运行 5 个诊断步骤，其 loss 依次为 1.709、1.625、1.914、1.857、1.664，平均 train loss 为 1.754。该短训练未触发独立验证评估，因此没有可报告的 eval_loss。
+Exp4 只运行 5 个诊断步骤，其 loss 依次为 1.709、1.625、1.914、1.857、1.664，平均 train loss 为 1.754。该短训练未触发独立验证评估，因此没有可报告的 eval_loss。
 
 ### 5.2 微调前后 reward 对比
 
 微调前后均使用同一版 `reward.py`、相同的 17 条验证样本以及完全一致的固定解码设置：seed 42、BF16、贪心解码、`num_beams=1`、`max_new_tokens=1024`、`repetition_penalty=1.0`。微调后直接加载提交目录 `adapter/`，因此本次评估同时验证了 adapter 的实际加载路径。完整汇总和两组逐样本分数保存在 `results.json`。
 
-| 指标 | 微调前：BF16 基座 | 微调后：最终 checkpoint-1 | 变化 |
+| 指标 | 微调前：BF16 基座 | 微调后：Exp4 checkpoint-1 | 变化 |
 | --- | ---: | ---: | ---: |
 | 样本数 | 17 | 17 | 0 |
 | 平均 reward | 0.065882 | 0.065882 | 0.000000 |
@@ -82,7 +83,7 @@ Exp1 的关键训练记录如下。`loss` 是对应日志步的训练 batch loss
 | 有效性分项均值 | 0.258824 | 0.258824 | 0.000000 |
 | 提示词保真分项均值 | 0.000000 | 0.000000 | 0.000000 |
 
-两组输出的所有 reward 汇总项均相同，`proxy_reward_delta`、`valid_xml_rate_delta`、`visible_drawing_rate_delta` 和 `fidelity_delta` 均为 0。这与最终 checkpoint-1 的全部 `lora_B` 为零相符。结论：**固定口径下没有观察到 LoRA 相对基座的提升。**
+两组输出的所有 reward 汇总项均相同，`proxy_reward_delta`、`valid_xml_rate_delta`、`visible_drawing_rate_delta` 和 `fidelity_delta` 均为 0。这与 Exp4 checkpoint-1 的全部 `lora_B` 为零相符。结论：**固定口径下没有观察到 LoRA 相对基座的提升。**
 
 ## 6. 原因分析与局限
 

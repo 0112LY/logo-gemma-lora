@@ -1,3 +1,4 @@
+# Conservative final experiment added after Exp1-Exp3 generation diagnostics.
 ENV:
   MODELSCOPE_CACHE: outputs/cache/modelscope
   HF_HOME: outputs/cache/huggingface
