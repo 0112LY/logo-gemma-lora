@@ -6,7 +6,6 @@ ms-swift==4.4.0
 modelscope==1.38.1
 transformers==5.8.1
 peft==0.19.1
-bitsandbytes==0.49.2
 trl==0.29.1
 accelerate==1.14.0
 datasets==4.8.4

@@ -47,5 +47,5 @@ data_seed: 42
 dataset_num_proc: 1
 dataloader_num_workers: 0
 report_to: "none"
-output_dir: outputs/exp7_bf16_conservative
+output_dir: outputs/final_bf16_lora
 add_version: false

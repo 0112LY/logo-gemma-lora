@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "selected_checkpoint": "outputs/exp7_bf16_conservative/checkpoint-1",
-  "evaluation_model": "outputs/exp7_ckpt1_merged",
+  "selected_checkpoint": "outputs/final_bf16_lora/checkpoint-1",
+  "evaluation_model": "outputs/final_bf16_merged",
   "precision": "bfloat16",
   "decoding": {
     "temperature": 0,
