@@ -102,7 +102,6 @@ swift sft train_config.yaml
 python -m unittest discover -s tests -v
 ```
 
-提交的 `adapter/` 包含 PEFT 配置与 safetensors 权重；模型本体、原始数据、缓存和中间 checkpoint 不属于提交物。
 
 ## 8. 总结
 
