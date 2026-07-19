@@ -23,10 +23,7 @@ logo-gemma-lora/
 │   └── ...
 ├── scripts/
 │   ├── inspect_data.py
-│   ├── inspect_results.py
-│   └── render_examples.py
-├── examples/
-│   └── selected SVG comparisons only
+│   └── inspect_results.py
 └── tests/
     └── test_reward.py
 ```
