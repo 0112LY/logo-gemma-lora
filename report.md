@@ -37,8 +37,6 @@ Reward 由七项组成：有效性 30%、结构 15%、画布 15%、可见性 15%
 
 保守实验逐步保存并评估 checkpoint。候选搜索最终延长到 5 个 epoch，并对后期低 `eval_loss` 候选进行完整 17 条验证。最终没有直接采用最低 `eval_loss` 的 checkpoint，而是按完整验证集 reward、XML 有效率、可见绘图率依次选择。
 
-提交配置使用 `max_steps: 55`，而不是 `num_train_epochs: 5`，因为最终 adapter 来自 checkpoint-55。五个 epoch 只是 checkpoint 搜索上限，并不是最终模型的训练长度；若以 5 epoch 作为提交配置，将复现后期模型而无法复现本次提交的权重与指标。
-
 ## 4. Loss 与 checkpoint 选择
 
 实验前 20 步的代表性记录如下。单批训练 loss 波动明显，而 `eval_loss` 仅缓慢变化。
