@@ -30,7 +30,7 @@
     "finetuned": {
       "model": "models/gemma-3-270m-it",
       "adapter": "adapter",
-      "source_checkpoint": "outputs/exp5_full_conservative/checkpoint-55",
+      "source_checkpoint": "outputs/exp4_final/checkpoint-55",
       "summary": {
         "num_samples": 17,
         "proxy_reward_mean": 0.141176,

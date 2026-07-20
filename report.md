@@ -35,7 +35,9 @@ Reward 由七项组成：有效性 30%、结构 15%、画布 15%、可见性 15%
 
 最初测试了 rank 8/16 和学习率 `1e-4`/`2e-4`。这些较大更新虽然降低了 teacher-forcing loss，却使自由生成进入属性或数字重复，常常达到长度上限而没有闭合 SVG。因此追加保守实验：rank 4、只训练 `q_proj/v_proj`，并将学习率降低到 `1e-6`。
 
-保守实验逐步保存并评估 checkpoint。最终训练到 5 个 epoch，并对后期低 `eval_loss` 候选进行完整 17 条验证。最终没有直接采用最低 `eval_loss` 的 checkpoint，而是按完整验证集 reward、XML 有效率、可见绘图率依次选择。
+保守实验逐步保存并评估 checkpoint。候选搜索最终延长到 5 个 epoch，并对后期低 `eval_loss` 候选进行完整 17 条验证。最终没有直接采用最低 `eval_loss` 的 checkpoint，而是按完整验证集 reward、XML 有效率、可见绘图率依次选择。
+
+提交配置使用 `max_steps: 55`，而不是 `num_train_epochs: 5`，因为最终 adapter 来自 checkpoint-55。五个 epoch 只是 checkpoint 搜索上限，并不是最终模型的训练长度；若以 5 epoch 作为提交配置，将复现后期模型而无法复现本次提交的权重与指标。
 
 ## 4. Loss 与 checkpoint 选择
 

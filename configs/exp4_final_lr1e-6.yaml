@@ -49,5 +49,5 @@ data_seed: 42
 dataset_num_proc: 1
 dataloader_num_workers: 0
 report_to: "none"
-output_dir: outputs/exp5_full_conservative
+output_dir: outputs/exp4_final
 add_version: false
